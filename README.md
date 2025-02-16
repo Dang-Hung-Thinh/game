@@ -42,5 +42,35 @@ pygame.init()
 * Import `random` to generate random positions.
 * Initialize Pygame
   
-  ---
+---
+#### 2. Setup Game Window
+```python
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Galaxy Racer")
+```
+* Set the screen size to 800*600
+* Create a game window
+* Set the title "Galaxy Racer"
+---
+#### 3. Load Images & Sounds
+```python
+ship = pygame.image.load("images/ship.png")
+ship = pygame.transform.rotate(ship, 0)  # Rotate the ship 0 degrees
+obstacle_img = pygame.image.load("images/asteroid.png")
+booster_img = pygame.image.load("images/boot.png")
+background = pygame.image.load("images/bg.jpg")
+```
+* Load images for the spaceship, obstacles (asteroids), boosters, and background.
+* `pygame.transform.rotate(ship,0)`: Rotates the ship (0 degrees means to change).
+```python
+crash_sound = pygame.mixer.Sound("sounds/explosion.ogg")
+boost_sound = pygame.mixer.Sound("sounds/thrust.ogg")
+pygame.mixer.music.load("sounds/game.ogg")
+pygame.mixer.music.play(-1)
+```
+* Load and play sounds:
+    * `crash_sound`: When the ship crashes
+    * `boost_sound`: When collecting a booster.
+    * `game.ogg`: Background music (looped infinitely `-1`).
 
