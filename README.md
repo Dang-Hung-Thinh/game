@@ -29,7 +29,16 @@ py game.py
 ### Resources
 * Images and sounds are located in the `images/` and `sounds/` directories.
 * Main source file: `final2.py`
+### Explanation
+#### 1. Initialize Pygame and Setup
 ```python
 import pygame
+import random
+
+pygame.init()
 ```
+* Import `pygame` for game development
+* Import `random` to generate random positions.
+* Initialize Pygame
+  ---
 
