@@ -22,6 +22,13 @@ pip install pygame
 ```bash
 https://github.com/Dang-Hung-Thinh/game
 ```
+4. Run the game:
+```bash
+py game.py
+```
+### Resources
+* Images and sounds are located in the `images/` and `sounds/` directories.
+* Main source file: `final2.py`
 ```python
 import pygame
 ```
