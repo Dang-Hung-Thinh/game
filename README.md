@@ -40,5 +40,6 @@ pygame.init()
 * Import `pygame` for game development
 * Import `random` to generate random positions.
 * Initialize Pygame
+  
   ---
 
