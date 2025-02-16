@@ -111,7 +111,117 @@ for _ in range(2):
 * Generate 2 boosters at random positions.
 ---
 #### 6. Game Loop
-#### Draw Background
+##### Draw Background
 ```python
 screen.blit(background, (0,0))
 ```
+* Display the background image.
+#### Handle Events
+```python
+for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+        running = False
+    elif event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RETURN:
+            if score > 2000:
+                bullets.append([ship_x + 10, ship_y])
+                bullets.append([ship_x + 25, ship_y])
+                bullets.append([ship_x + 40, ship_y])
+            elif score > 1000:
+                bullets.append([ship_x + 15, ship_y])
+                bullets.append([ship_x + 35, ship_y])
+            else:
+                bullets.append([ship_x + 25, ship_y])
+```
+* Exit game when clicking **QUIT**.
+* When pressing **Enter**, the ship fires bullets:
+  * `score <= 1000`: Fires 1 bullets.
+  * `score >  1000`: Fires 2 bullets.
+  * `score >  2000`: Fires 3 bullets.
+##### Move the ship
+```python
+keys = pygame.key.get_pressed()
+if keys[pygame.K_LEFT] and ship_x > 50:
+    ship_x -= 7
+if keys[pygame.K_RIGHT] and ship_x < WIDTH - 50:
+    ship_x += 7
+```
+* Move the ship **left** or **right**.
+##### Move Bullets
+```python
+for bullet in bullets:
+    bullet[1] -= 10  
+
+bullets = [bullet for bullet in bullets if bullet[1] > 0]
+```
+* Bullets move **upward**.
+* Remove bullets when they go off-screen.
+##### Move Obstacles
+```python
+for obs in obstacles:
+    obs[1] += speed
+    if obs[1] > HEIGHT:
+        obs[1] = random.randint(-600, -50)
+        obs[0] = random.randint(50, WIDTH - 50)
+```
+* Assteroids move downward.
+* if an asteroid moves off-screen, it respawns at the top.
+##### Check Collision with Ship
+```python
+if abs(ship_x - obs[0]) < 50 and abs(ship_y - obs[1]) < 50:
+    crash_sound.play()
+    game_over = True
+```
+* If the ship collides with an asteroid → **Game Over**.
+##### Check Bullet Collision with Obstacles
+```python
+for bullet in bullets[:]:
+    for obs in obstacles[:]:
+        if abs(bullet[0] - obs[0]) < 30 and abs(bullet[1] - obs[1]) < 30:
+            obstacles.remove(obs)
+            bullets.remove(bullet)
+            crash_sound.play()
+            score += 10
+            break
+```
+* If a bullet hits an asteroid → Remove both and increase score.
+##### Move Boosters & Check Collection
+```python
+for boost in boosters:
+    boost[1] += speed
+    if boost[1] > HEIGHT:
+        boost[1] = random.randint(-600, -50)
+        boost[0] = random.randint(50, WIDTH - 50)
+
+    if abs(ship_x - boost[0]) < 50 and abs(ship_y - boost[1]) < 50:
+        boost_sound.play()
+        speed += 1
+        boost[1] = random.randint(-600, -50)
+        boost[0] = random.randint(50, WIDTH - 50)
+```
+* If the ship collects a booster → Increase speed.
+##### Draw Bullets
+```python
+for bullet in bullets:
+    pygame.draw.rect(screen, (255, 0, 0), (bullet[0], bullet[1], 5, 10))
+```
+* Draw red bullets.
+##### Display Score
+```python
+score += 1
+font = pygame.font.Font(None, 36)
+text = font.render(f"Score: {score}", True, (255, 255, 0))
+screen.blit(text, (10, 10))
+```
+* Update the score over time.
+##### Handle Game Over
+```python
+if game_over:
+    font = pygame.font.Font(None, 72)
+    over_text = font.render("GAME OVER", True, (255, 0, 0))
+    screen.blit(over_text, (WIDTH//2 - 150, HEIGHT//2))
+    pygame.display.update()
+    pygame.time.delay(3000)
+    running = False
+```
+* Display **"GAME OVER"** and stop the game.
