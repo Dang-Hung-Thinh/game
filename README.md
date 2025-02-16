@@ -73,4 +73,45 @@ pygame.mixer.music.play(-1)
     * `crash_sound`: When the ship crashes
     * `boost_sound`: When collecting a booster.
     * `game.ogg`: Background music (looped infinitely `-1`).
+---
+#### 4. Game State Variables
+```python
+clock = pygame.time.Clock()
+score = 0
+speed = 5
+game_over = False
+```
+* `clock`: Controls the game speed.
+* `score`: Player's score.
+* `speed`: Movement speed of obstacles.
+* `game_over`: Tracks game over status.
+---
+#### 5. Player and Object Initialization
+```python
+ship_x = WIDTH // 2 - 25
+ship_y = HEIGHT - 100
 
+obstacles = []
+boosters = []
+bullets = []
+```
+* `ship_x`, `ship_y`: Initial position of the ship.
+* `obstacles`: List of asteroids.
+* `boosters`: List of boosters.
+* `bullets`: List of bullets.
+##### Generate Obstacles & Boosters
+```python
+for _ in range(5):
+    obstacles.append([random.randint(50, WIDTH - 50), random.randint(-600, -50)])
+
+for _ in range(2):
+    boosters.append([random.randint(50, WIDTH - 50), random.randint(-600, -50)])
+```
+* Generate 5 asteroids at random positions.
+* Generate 2 boosters at random positions.
+---
+#### 6. Game Loop
+#### Draw Background
+```python
+screen.blit(background, (0,0))
+```
