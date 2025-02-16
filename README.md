@@ -20,7 +20,7 @@ pip install pygame
 ```
 3. Clone or download the source code:
 ```bash
-git clone https://github.com/your-repo/galaxy-
+https://github.com/Dang-Hung-Thinh/game
 ```
 ```python
 import pygame
