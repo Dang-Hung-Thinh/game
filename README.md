@@ -31,6 +31,7 @@ py game.py
 * Main source file: `final2.py`
 ### Explanation
 #### 1. Initialize Pygame and Setup
+---
 ```python
 import pygame
 import random
