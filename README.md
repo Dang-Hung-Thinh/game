@@ -10,10 +10,17 @@ Galaxy Racer is a small game developed using Pygame, where you control a spacesh
 * Python3
 * ``pygame`` library
 #### Installation Steps
-1. Install Python if not already installed: `https://www.python.org/downloads/`
+1. Install Python if not already installed:
+```bash
+https://www.python.org/downloads/
+```
 2. Install Pygame library:
 ```bash
 pip install pygame
+```
+3. Clone or download the source code:
+```bash
+git clone https://github.com/your-repo/galaxy-
 ```
 ```python
 import pygame
